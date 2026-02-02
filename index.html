@@ -3,16 +3,16 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>HBD love</title>	    
-    <link type="text/css" rel="stylesheet" href="./file/default.css">
-    <script type="text/javascript" src="./file/jquery.min.js"></script>
-    <script type="text/javascript" src="./file/jscex.min.js"></script>
-    <script type="text/javascript" src="./file/jscex-parser.js"></script>
-    <script type="text/javascript" src="./file/jscex-jit.js"></script>
-    <script type="text/javascript" src="./file/jscex-builderbase.min.js"></script>
-    <script type="text/javascript" src="./file/jscex-async.min.js"></script>
-    <script type="text/javascript" src="./file/jscex-async-powerpack.min.js"></script>
-    <script type="text/javascript" src="./file/functions.js" charset="utf-8"></script>
-    <script type="text/javascript" src="./file/love.js" charset="utf-8"></script>
+    <link type="text/css" rel="stylesheet" href="default.css">
+    <script type="text/javascript" src="jquery.min.js"></script>
+    <script type="text/javascript" src="jscex.min.js"></script>
+    <script type="text/javascript" src="jscex-parser.js"></script>
+    <script type="text/javascript" src="jscex-jit.js"></script>
+    <script type="text/javascript" src="jscex-builderbase.min.js"></script>
+    <script type="text/javascript" src="jscex-async.min.js"></script>
+    <script type="text/javascript" src="jscex-async-powerpack.min.js"></script>
+    <script type="text/javascript" src="functions.js" charset="utf-8"></script>
+    <script type="text/javascript" src="love.js" charset="utf-8"></script>
     <script>
         function playAudio() {
             var audio = document.getElementById("myAudio");
@@ -178,6 +178,31 @@
 
         runAsync().start();
     })();
+		// ===== TIMER AUTO DOB SYSTEM =====
+function getDOB() {
+    const params = new URLSearchParams(window.location.search);
+    const dateStr = params.get("date"); // format: YYYY-MM-DD
+    if (!dateStr) return null;
+
+    const parts = dateStr.split("-");
+    return new Date(parts[0], parts[1]-1, parts[2]);
+}
+
+var together = getDOB();
+
+if (!together) {
+    // default date (backup)
+    together = new Date(2009, 1, 4); // 4 Feb 2009
+}
+
+// show clock box
+$("#clock-box").show();
+
+setInterval(function () {
+    timeElapse(together);
+}, 1000);
+// ===== TIMER AUTO DOB SYSTEM END =====
+
     </script>
 </body>
 </html>
